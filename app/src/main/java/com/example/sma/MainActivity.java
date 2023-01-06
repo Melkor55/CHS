@@ -1,52 +1,61 @@
 package com.example.sma;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class MainActivity extends AppCompatActivity {
 
     Connection connect;
+    Button loginButton;
+    Button registerButton ;
     String connectionResult = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GetDataToTextView();
-    }
+        registerButton = (Button) findViewById(R.id.registerButton);
+        loginButton = (Button) findViewById(R.id.loginButton);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-    public void GetDataToTextView()
-    {
-        TextView textView1 = (TextView) findViewById(R.id.text1);
-        TextView textView2 = (TextView) findViewById(R.id.text2);
-        try {
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            connect = connectionHelper.conclass();
-            if(connect != null)
-            {
-                System.out.println("ok ...");
-                String query = "Select * From USERS";
-                Statement statement = connect.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while (resultSet.next())
-                {
-                    textView1.setText(resultSet.getString(1));
-                    textView2.setText(resultSet.getString(2));
-                }
+
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
+        });
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        }
-        catch (Exception exception)
-        {
-            Log.e("Eroor :", exception.getMessage());
-        }
+
+        //GetDataToTextView();
+        //start(null);
     }
+
+
 }
