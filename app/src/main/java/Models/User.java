@@ -10,6 +10,9 @@ public class User {
         private int Height;
         private int Weight;
 
+        public User() {
+        }
+
         public User(String email, String password) {
                 Email = email;
                 Password = password;
@@ -106,5 +109,10 @@ public class User {
                         ", Height=" + Height +
                         ", Weight=" + Weight +
                         '}';
+        }
+
+        public String[] getFieldNameString()
+        {
+               return new String[]{"FirstName", "LastName", "Email", "Password", "Age", "Height","Weight"};
         }
 }

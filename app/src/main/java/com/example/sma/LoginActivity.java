@@ -1,9 +1,8 @@
 package com.example.sma;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.graphics.Color;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +14,12 @@ import java.util.Arrays;
 
 import Handlers.LoginHandler;
 import Models.User;
+import Utils.ArrayFunctions;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView textViewStatus ;
-    EditText usernameField;
+    //EditText usernameField;
     EditText emailField;
     EditText passwordField;
     Button loginButton;
@@ -30,13 +30,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         textViewStatus = findViewById(R.id.textViewStatus);
-        usernameField = findViewById(R.id.usernameField);
+        //usernameField = findViewById(R.id.usernameField);
         emailField = findViewById(R.id.emailField);
         passwordField = findViewById(R.id.passwordField);
         loginButton = findViewById(R.id.loginButton2);
 
-        
-        
+        ArrayFunctions arrayFunctions = new ArrayFunctions(){};
         String[] data = new String[2];
 
 //        URL url = new URL("https://api.myjson.com/bins/k3p10");
@@ -49,12 +48,19 @@ public class LoginActivity extends AppCompatActivity {
 //            data = data + line;
 //        }
 
+        String localhost = "192.168.1.7";
+        String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
+        String login_url_local = "http://" + localhost + ":8090/api/login";
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //data[0] = String.valueOf(username.getText());
                 data[0] = String.valueOf(emailField.getText());
                 data[1] = String.valueOf(passwordField.getText());
+
+                User user;
 
                 printArray(data);
                 System.out.println(Arrays.toString(data));
@@ -62,15 +68,20 @@ public class LoginActivity extends AppCompatActivity {
                 //System.out.println("null");
                 if(!checkIFArrayIsNull(data))
                 {
-                    String localhost = "192.168.1.7";
-                    User user = new User(data[0], data[1]);
-                    String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-                    String login_url_local = "http://" + localhost + ":8090/api/login";
 
+                    user = new User(data[0], data[1]);
 
                     LoginHandler loginHandler = new LoginHandler(LoginActivity.this, user, login_url_local, textViewStatus);
 
                     loginHandler.execute();
+
+                    System.out.println(" lOGIN --> " + loginHandler.isLoginSuccessful());
+                    if( !loginHandler.isLoginSuccessful() )
+                    {
+                        setHintTextAndColor(emailField,"Incorrect", R.color.red);
+                        setHintTextAndColor(passwordField,"Incorrect", R.color.red);
+                        //Toast.makeText(LoginActivity.this, "The Email and/or Password are incorrect !", Toast.LENGTH_LONG).show();
+                    }
                     //textViewStatus = loginHandler.getTextViewStatus();
                 }
                 else
@@ -115,6 +126,7 @@ public class LoginActivity extends AppCompatActivity {
         textView.setHint(hintMessage);
         //textView.setHintTextColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
         textView.setHintTextColor(getResources().getColor(color));
+        textView.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(color)));
     }
 
     boolean checkIFArrayIsNull( Object[] array/*, int startPosition, int endPosition */ )
