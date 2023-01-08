@@ -21,6 +21,22 @@ public class Product implements Serializable {
     private int Protein;
     private int Salt;
 
+    public Product(String name, String brand, int calories, int weight, String unit, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
+        Name = name;
+        Brand = brand;
+        Calories = calories;
+        Weight = weight;
+        Unit = unit;
+        Fats = fats;
+        SaturatedFats = saturatedFats;
+        Carbohydrates = carbohydrates;
+        Polyols = polyols;
+        Sugars = sugars;
+        Fiber = fiber;
+        Protein = protein;
+        Salt = salt;
+    }
+
     public Product(String barcode, String name, String brand, int calories, int weight, String unit, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
         Barcode = barcode;
         Name = name;
