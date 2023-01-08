@@ -11,6 +11,10 @@ import androidx.core.content.ContextCompat;
 import com.example.sma.LoginActivity;
 import com.example.sma.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ExtraFunctions {
     public void setHintTextAndColor(TextView textView, String hintMessage, int color)
     {
@@ -73,5 +77,24 @@ public class ExtraFunctions {
         }
         if (!textForEmptyFields.equals(""))
             Toast.makeText(context, "Empty : " + textForEmptyFields + " !", Toast.LENGTH_LONG).show();
+    }
+
+    public void timeStuff()
+    {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        Date currentDate = new Date();
+        String date = dateFormat.format(Calendar.getInstance().getTime());
+
+        SimpleDateFormat curFormater = new SimpleDateFormat("EEEE, d LLL");
+        //Date dateObj = curFormater.parse(dateStr);
+        SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy");
+
+
+
+        System.out.println("Date is :" + currentDate);
+        System.out.println("Date formated is :" + curFormater.format(currentDate));
+        System.out.println("Formated Date is :" + curFormater.format(new Date(2222,11,12)));
     }
 }

@@ -2,7 +2,9 @@ package com.example.sma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 import Handlers.LoginHandler;
 import Models.User;
@@ -75,13 +79,46 @@ public class LoginActivity extends AppCompatActivity {
 
                     loginHandler.execute();
 
-                    System.out.println(" lOGIN --> " + loginHandler.isLoginSuccessful());
-                    if( !loginHandler.isLoginSuccessful() )
-                    {
-                        setHintTextAndColor(emailField,"Incorrect", R.color.red);
-                        setHintTextAndColor(passwordField,"Incorrect", R.color.red);
-                        //Toast.makeText(LoginActivity.this, "The Email and/or Password are incorrect !", Toast.LENGTH_LONG).show();
+                    String loginSuccess = "";
+
+                    try {
+                        loginSuccess = loginHandler.get();
+
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+//                    for(int i = 0 ; i < 1000 ; i ++)
+//                    {
+//
+//                        else {
+//                            System.out.println("---- Status ----" + loginHandler.status);
+//                            try {
+//                                Thread.sleep(100);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+                    if (loginHandler.status >= 100 && loginHandler.status<400 )
+                    {
+                        System.out.println("---- Loged In ----" + loginSuccess);
+                        user = loginHandler.getUser();
+                        System.out.println("User us :" + user);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("CurrentUser", (Serializable) user);
+                        startActivity(intent);
+                        //break;
+                    }
+
+                    System.out.println(" lOGIN --> " + loginHandler.isLoginSuccessful());
+//                    if( !loginHandler.isLoginSuccessful() )
+//                    {
+//                        setHintTextAndColor(emailField,"Incorrect", R.color.red);
+//                        setHintTextAndColor(passwordField,"Incorrect", R.color.red);
+//                        //Toast.makeText(LoginActivity.this, "The Email and/or Password are incorrect !", Toast.LENGTH_LONG).show();
+//                    }
                     //textViewStatus = loginHandler.getTextViewStatus();
                 }
                 else

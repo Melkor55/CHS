@@ -2,6 +2,7 @@ package com.example.sma;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -95,35 +97,38 @@ public class RegisterActivity extends AppCompatActivity {
                         getResources(),
                         R.color.red
                 );
-                if(!data[2].isEmpty())
-                    if(isEmailValid(data[2]))
-                    {
+                if(!data[2].isEmpty()) {
+                    if (isEmailValid(data[2])) {
                         System.out.println(data[2] + " ---> valid");
-                        if(!arrayFunctions.checkIFArrayIsNull(data))
-                        {
+                        if (!arrayFunctions.checkIFArrayIsNull(data)) {
                             //System.out.println("not null");
-                            user = new User(data[0],data[1],data[2],data[3],Integer.parseInt(data[4]),Integer.parseInt(data[5]),Integer.parseInt(data[6]));
+                            user = new User(data[0], data[1], data[2], data[3], Integer.parseInt(data[4]), Integer.parseInt(data[5]), Integer.parseInt(data[6]));
                             //System.out.println(user);
 
                             RegisterHandler registerHandler = new RegisterHandler(RegisterActivity.this, user, login_url_local, textViewStatus);
 
-                            registerHandler.execute();
-                        }
-                        else
-                        {
+                            try {
+                                registerHandler.execute().get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            if (registerHandler.status >= 100 && registerHandler.status<400 )
+                            {
+                                System.out.println("---- Registered ----");
+                                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                            }
+                        } else {
                             System.out.println("null");
                         }
-                    }
-                    else
-                    {
+                    } else {
                         System.out.println(data[2] + " ---> NOT valid");
                         Toast.makeText(RegisterActivity.this, "Email Address is not Valid", Toast.LENGTH_LONG).show();
-                        extraFunctions.setHintTextAndColor(emailField,"Email is incorect, please enter a valid Email", getResources().getColor(R.color.red));
+                        extraFunctions.setHintTextAndColor(emailField, "Email is incorrect, please enter a valid Email", getResources().getColor(R.color.red));
                     }
-
-
-
-
+                }
 
             }
         });

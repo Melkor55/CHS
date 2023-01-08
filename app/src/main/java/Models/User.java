@@ -1,6 +1,10 @@
 package Models;
 
-public class User {
+import androidx.annotation.Nullable;
+
+import java.io.Serializable;
+
+public class User implements Serializable {
         private int UserId;
         private String FirstName;
         private String LastName;
@@ -114,5 +118,20 @@ public class User {
         public String[] getFieldNameString()
         {
                return new String[]{"FirstName", "LastName", "Email", "Password", "Age", "Height","Weight"};
+        }
+
+        public boolean isEqualTo(@Nullable User user) {
+                if(
+                   this.UserId == user.UserId  &&
+                   this.FirstName.equals(user.FirstName) &&
+                   this.LastName.equals(user.LastName) &&
+                   this.Email.equals(user.Email) &&
+                   this.Password.equals(user.Password) &&
+                   this.Age == user.Age  &&
+                   this.Height == user.Height  &&
+                   this.Weight == user.Weight
+                )
+                        return true;
+                return false;
         }
 }

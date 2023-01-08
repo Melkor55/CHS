@@ -10,6 +10,7 @@
     <color name="mRed">#FF0505</color>
     <color name="mGreen">#4CAF50</color>
     <color name="mGray">#3C3F41</color>
+    <color name="transparent">#00FFFFFF</color>
     <!-- ADDED   -->
     <color name="white">#FFFFFFFF</color>
     <color name="ivory">#FFFFF0</color>
