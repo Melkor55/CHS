@@ -17,6 +17,13 @@
         android:theme="@style/Theme.SMA"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SearchFoodActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddFoodActivity"
             android:exported="false"
             android:parentActivityName=".HomeActivity">

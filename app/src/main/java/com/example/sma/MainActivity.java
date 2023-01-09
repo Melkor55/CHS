@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginButton;
     Button registerButton ;
     Button homeButton ;
+    Button searchButton ;
     String connectionResult = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.registerButton);
         loginButton = (Button) findViewById(R.id.loginButton);
         homeButton = (Button) findViewById(R.id.homeButton);
+        searchButton = (Button) findViewById(R.id.searchButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchFoodActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //GetDataToTextView();
         //start(null);

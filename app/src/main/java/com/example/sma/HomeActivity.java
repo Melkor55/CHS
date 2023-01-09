@@ -71,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
     Button addFoodToDinnerButton;
     Button addFoodToSnacksButton;
 
+    Button addFood;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +100,8 @@ public class HomeActivity extends AppCompatActivity {
         addFoodToLunchButton = findViewById(R.id.addFoodToLunchButton);
         addFoodToDinnerButton = findViewById(R.id.addFoodToDinnerButton);
         addFoodToSnacksButton = findViewById(R.id.addFoodToSnackButton);
+
+        addFood = findViewById(R.id.addButton);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, d LLL");
         String currentDate = dateFormat.format(Calendar.getInstance().getTime());
@@ -216,6 +220,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 5) {
+            if (resultCode == RESULT_OK) {
+                user = (User)  data.getSerializableExtra("UpdatedUser");
+                System.out.println("" + user);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                System.out.println("Nothing selected");
+            }
+        }
+        else if (requestCode == 6) {
             if (resultCode == RESULT_OK) {
                 user = (User)  data.getSerializableExtra("UpdatedUser");
                 System.out.println("" + user);

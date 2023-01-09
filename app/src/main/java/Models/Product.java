@@ -1,6 +1,7 @@
 package Models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Product implements Serializable {
 	private int ProductId;
@@ -38,6 +39,24 @@ public class Product implements Serializable {
     }
 
     public Product(String barcode, String name, String brand, int calories, int weight, String unit, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
+        Barcode = barcode;
+        Name = name;
+        Brand = brand;
+        Calories = calories;
+        Weight = weight;
+        Unit = unit;
+        Fats = fats;
+        SaturatedFats = saturatedFats;
+        Carbohydrates = carbohydrates;
+        Polyols = polyols;
+        Sugars = sugars;
+        Fiber = fiber;
+        Protein = protein;
+        Salt = salt;
+    }
+
+    public Product(int productId, String barcode, String name, String brand, int calories, int weight, String unit, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
+        ProductId = productId;
         Barcode = barcode;
         Name = name;
         Brand = brand;
@@ -193,5 +212,28 @@ public class Product implements Serializable {
                 ", Protein=" + Protein +
                 ", Salt=" + Salt +
                 '}';
+    }
+    
+    public boolean isEqualTo(Product product)
+    {
+        if(
+            this.ProductId == product.ProductId &&
+            this.Barcode.equals(product.Barcode) &&
+            this.Name.equals(product.Name) &&
+            this.Brand.equals(product.Brand) &&
+            this.Calories == product.Calories &&
+            this.Weight == product.Weight &&
+            this.Unit.equals(product.Unit) &&
+            this.Fats == product.Fats &&
+            this.SaturatedFats == product.SaturatedFats &&
+            this.Carbohydrates == product.Carbohydrates &&
+            this.Polyols == product.Polyols &&
+            this.Sugars == product.Sugars &&
+            this.Fiber == product.Fiber &&
+            this.Protein == product.Protein &&
+            this.Salt == product.Salt
+        )
+            return true;
+        return false;
     }
 }
