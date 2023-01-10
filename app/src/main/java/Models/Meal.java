@@ -15,6 +15,11 @@ public class Meal implements Serializable {
 	private int Protein;
 	private int Salt;
 
+	public Meal()
+	{
+
+	}
+
 	public Meal(int mealId, int calories, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
 		MealId = mealId;
 		Calories = calories;

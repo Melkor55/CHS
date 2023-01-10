@@ -24,19 +24,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Models.Meal;
 import Models.Product;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewProcessHolder> {
+public class ProductMealAdapter extends RecyclerView.Adapter<ProductMealAdapter.ViewProcessHolder> {
 
     Context context;
     private String table;
     private ArrayList<Product> products; //memanggil modelData
+    private Meal meal;
     private Product clickedProduct;
     private ItemClickListener mClickListener;
 
-    public ProductAdapter(Context context, ArrayList<Product> products) {
+    public ProductMealAdapter(Context context, ArrayList<Product> products, Meal meal) {
         this.context = context;
         this.products = products;
+        this.meal = meal;
     }
 
     public void filterList(ArrayList<Product> filteredList) {
@@ -54,6 +57,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewProc
 
     public void setClickedProduct(Product clickedProduct) {
         this.clickedProduct = clickedProduct;
+    }
+
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(Meal meal) {
+        this.meal = meal;
     }
 
     @NonNull
@@ -140,8 +151,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewProc
 //                notifyItemRemoved(holder.getAdapterPosition()); // notify the adapter about the removed item
 //            }
 //        });
-            //notifyItemRemoved(holder.getAdapterPosition()); // notify the adapter about the removed item
-            //notifyItemChanged(holder.getAdapterPosition());
+        //notifyItemRemoved(holder.getAdapterPosition()); // notify the adapter about the removed item
+        //notifyItemChanged(holder.getAdapterPosition());
     }
 
     @Override
@@ -168,18 +179,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewProc
         @Override
         public void onClick(View view) {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
-                //Toast.makeText(view.getContext(), "Item " + getAdapterPosition() + " clicked",Toast.LENGTH_LONG).show();
-                //System.out.println(products.get(getAdapterPosition()));
-                clickedProduct = products.get(getAdapterPosition());
+            //Toast.makeText(view.getContext(), "Item " + getAdapterPosition() + " clicked",Toast.LENGTH_LONG).show();
+            //System.out.println(products.get(getAdapterPosition()));
+            clickedProduct = products.get(getAdapterPosition());
 
-            Intent intentSearchActivity = new Intent("get-selected-product");
-            intentSearchActivity.putExtra("clickedProduct", (Serializable) clickedProduct);
-            LocalBroadcastManager.getInstance(context).sendBroadcast(intentSearchActivity);
-
-//            System.out.println(view);
-//            Intent intentHomeActivity = new Intent("get-selected-product-home-activity");
-//            intentHomeActivity.putExtra("clickedProduct", (Serializable) clickedProduct);
-//            LocalBroadcastManager.getInstance(context).sendBroadcast(intentHomeActivity);
+            System.out.println(view);
+            Intent intentHomeActivity = new Intent("get-selected-product-home-activity");
+            intentHomeActivity.putExtra("clickedProduct", (Serializable) clickedProduct);
+            intentHomeActivity.putExtra("Meal", (Serializable) meal);
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intentHomeActivity);
         }
     }
 

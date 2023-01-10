@@ -80,7 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         String[] data = new String[7];
         ExtraFunctions extraFunctions = new ExtraFunctions();
 
-        String localhost = "192.168.1.7";
+        String localhost = "192.168.43.51";//"192.168.1.102";//"192.168.1.7";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
         String login_url_local = "http://" + localhost + ":8090/api/updateUser";
 

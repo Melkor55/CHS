@@ -15,9 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Name"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:layout_gravity="center_vertical"
-        android:textStyle="bold"
         android:drawablePadding="5dp"/>
 
     <TextView
@@ -29,7 +28,7 @@
         android:layout_column="0"
         android:drawablePadding="5dp"
         android:text="Brand"
-        android:textSize="14sp"
+        android:textSize="14dp"
         android:textStyle="bold" />
 
     <TextView
@@ -41,8 +40,8 @@
         android:layout_column="1"
         android:drawablePadding="5dp"
         android:text="Food Details"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        android:textSize="12dp"
+        android:textStyle="italic" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/removeFoodButton"

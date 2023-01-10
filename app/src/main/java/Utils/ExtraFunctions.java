@@ -24,7 +24,7 @@ public class ExtraFunctions {
         textView.setBackgroundTintList(ColorStateList.valueOf(color));
     }
 
-    public void checkForEmptyData(String[] data, String[] dataName, TextView[] textViews, Context context, Resources resource,  int color)
+    public boolean checkForEmptyData(String[] data, String[] dataName, TextView[] textViews, Context context, Resources resource,  int color)
     {
 //        if ( data[0].isEmpty() && data[1].isEmpty())
 //        {
@@ -45,10 +45,12 @@ public class ExtraFunctions {
 //            Toast.makeText(context, "The Password Field is Empty !", Toast.LENGTH_LONG).show();
 //        }
         boolean[] emptyFields = new boolean[data.length] ;
+        int fieldsEmpty = 0;
         String textForEmptyFields = "";
         for (int i = 0; i < data.length; i++) {
             if(data[i].isEmpty())
             {
+                fieldsEmpty++;
                 emptyFields[i] = true;
                 if(textViews[i] != null)
                     setHintTextAndColor(textViews[i],"Empty " + dataName[i] +" Field", resource.getColor(color));
@@ -75,8 +77,13 @@ public class ExtraFunctions {
                     textForEmptyFields += dataName[i];
             }
         }
-        if (!textForEmptyFields.equals(""))
+        if (!textForEmptyFields.equals("")) {
             Toast.makeText(context, "Empty : " + textForEmptyFields + " !", Toast.LENGTH_LONG).show();
+        }
+        System.out.println("Empty fields --> "+fieldsEmpty);
+        if(fieldsEmpty>0)
+            return true;
+        return false;
     }
 
     public void timeStuff()

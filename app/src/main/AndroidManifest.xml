@@ -15,10 +15,12 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMA"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".SearchFoodActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

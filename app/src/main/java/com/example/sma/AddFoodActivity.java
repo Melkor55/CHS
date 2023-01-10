@@ -36,13 +36,15 @@ import Models.Day;
 import Models.Meal;
 import Models.Product;
 import Models.User;
+import Utils.ExtraFunctions;
 
 public class AddFoodActivity extends AppCompatActivity {
 
     Meal meal;
     User user;
-    Product product,clickedProduct;
-    
+    Product product = new Product(), clickedProduct = new Product();
+    String barcode = "0";
+
 	Button saveButton;
 
 	EditText  brandField;
@@ -122,9 +124,9 @@ public class AddFoodActivity extends AppCompatActivity {
         meal = (Meal) getIntent().getSerializableExtra("Meal");
         clickedProduct = (Product) getIntent().getSerializableExtra("CurrentProduct");
 
-        String localhost = "192.168.1.7:8090";
+        String localhost = "192.168.43.51:8090";//"192.168.1.7:8090";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-        String login_url_local = "http://" + localhost + "/api";
+        String login_url_local = "http://" + localhost + ":8090/api";
 
         String createMealUrl = login_url_local + "/meals";
         String createDayUrl = login_url_local + "/days";
@@ -152,43 +154,90 @@ public class AddFoodActivity extends AppCompatActivity {
             proteinField.setText(String.valueOf(product.getProtein()));
             saltField.setText(String.valueOf(product.getSalt()));
         }
-
+        ExtraFunctions extraFunctions = new ExtraFunctions();
+        String[] data = new String[13];
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String barcode ;
                 if (product != null)
-                    barcode = product.getBarcode();
-                else
-                    barcode = "0";
-                Product newProduct = new Product(
-                        barcode,
-                        String.valueOf(nameField.getText()),
-                        String.valueOf(brandField.getText()),
-                        Integer.parseInt(String.valueOf(caloriesField.getText())),
-                        Integer.parseInt(String.valueOf(weightField.getText())),
-                        unitSpinner.getSelectedItem().toString(),
-                        Integer.parseInt(String.valueOf(saturatedFatsField.getText())),
-                        Integer.parseInt(String.valueOf(fatsField.getText())),
-                        Integer.parseInt(String.valueOf(carbohydratesField.getText())),
-                        Integer.parseInt(String.valueOf(polyolsField.getText())),
-                        Integer.parseInt(String.valueOf(sugarsField.getText())),
-                        Integer.parseInt(String.valueOf(fiberField.getText())),
-                        Integer.parseInt(String.valueOf(proteinField.getText())),
-                        Integer.parseInt(String.valueOf(saltField.getText()))
+                        if(product.getBarcode() != null)
+                            barcode = product.getBarcode();
+//                extraFunctions.checkForEmptyData(
+//                        data,
+//                        user.getFieldNameString(),
+//                        new TextView[]{firstNameField,lastNameField,emailField,passwordField,null,weightField,heightField},
+//                        RegisterActivity.this,
+//                        getResources(),
+//                        R.color.red
+//                );
+                //data[0] = barcode;
+                data[0] = String.valueOf(nameField.getText());
+                data[1] = String.valueOf(brandField.getText());
+                data[2] = String.valueOf(caloriesField.getText());
+                data[3] = String.valueOf(weightField.getText());
+                data[4] = unitSpinner.getSelectedItem().toString();
+                data[5] = String.valueOf(fatsField.getText());
+                data[6] = String.valueOf(saturatedFatsField.getText());
+                data[7] = String.valueOf(carbohydratesField.getText());
+                data[8] = String.valueOf(polyolsField.getText());
+                data[9] = String.valueOf(sugarsField.getText());
+                data[10] = String.valueOf(fiberField.getText());
+                data[11] = String.valueOf(proteinField.getText());
+                data[12] = String.valueOf(saltField.getText());
+
+                boolean emptyFields = extraFunctions.checkForEmptyData(
+                        data,
+                        product.getFieldNameString(),
+                        new TextView[]{
+                                nameField,
+                                brandField,
+                                caloriesField,
+                                weightField,
+                                null,
+                                fatsField,
+                                saturatedFatsField,
+                                carbohydratesField,
+                                polyolsField,
+                                sugarsField,
+                                fiberField,
+                                proteinField,
+                                saltField},
+                        AddFoodActivity.this,
+                        getResources(),
+                        R.color.red
                 );
-                System.out.println(product);
-                product = updateProduct(updateProduct, newProduct);
-                System.out.println(product);
-                System.out.println(newProduct);
-                //Toast.makeText(AddFoodActivity.this, "User Updated !", Toast.LENGTH_SHORT).show();
-                if(product.isEqualTo(newProduct))
-                {
-                    Toast.makeText(AddFoodActivity.this, "No modifications for Product !", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(AddFoodActivity.this, "Product Updated !", Toast.LENGTH_SHORT).show();
+                System.out.println("Empty fields !" + emptyFields);
+                if(!emptyFields) {
+                    Product newProduct = new Product(
+                            barcode,
+                            String.valueOf(data[0]),
+                            String.valueOf(data[1]),
+                            Integer.parseInt(data[2]),
+                            Integer.parseInt(data[3]),
+                            data[4],
+                            Integer.parseInt(String.valueOf(data[5])),
+                            Integer.parseInt(String.valueOf(data[6])),
+                            Integer.parseInt(String.valueOf(data[7])),
+                            Integer.parseInt(String.valueOf(data[8])),
+                            Integer.parseInt(String.valueOf(data[9])),
+                            Integer.parseInt(String.valueOf(data[10])),
+                            Integer.parseInt(String.valueOf(data[11])),
+                            Integer.parseInt(String.valueOf(data[12]))
+                    );
+
+                    System.out.println(product);
+                    product = updateProduct(updateProduct, newProduct);
+                    System.out.println(product);
+                    System.out.println(newProduct);
+                    //Toast.makeText(AddFoodActivity.this, "User Updated !", Toast.LENGTH_SHORT).show();
+                    if(product.isEqualTo(newProduct))
+                    {
+                        Toast.makeText(AddFoodActivity.this, "No modifications for Product !", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(AddFoodActivity.this, "Product Updated !", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -324,7 +373,7 @@ public class AddFoodActivity extends AppCompatActivity {
 
             //System.out.println("*** User : " + user);
 
-            String data =   URLEncoder.encode("Barcode", "UTF-8") + "=" + URLEncoder.encode(newProduct.getBarcode(), "UTF-8") +  "&"
+            String data =   URLEncoder.encode("Barcode", "UTF-8") + "=" + URLEncoder.encode(barcode, "UTF-8") +  "&"
                             + URLEncoder.encode("Name", "UTF-8") + "=" + URLEncoder.encode(newProduct.getName(), "UTF-8")  + "&"
                             + URLEncoder.encode("Brand", "UTF-8") + "=" + URLEncoder.encode(newProduct.getBrand(), "UTF-8")  + "&"
                             + URLEncoder.encode("Calories", "UTF-8") + "=" + newProduct.getCalories() + "&"

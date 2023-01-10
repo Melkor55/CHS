@@ -2,8 +2,12 @@ package com.example.sma;
 
 import static com.example.sma.ProfileActivity.user;
 
+import static java.security.AccessController.getContext;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +16,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 //import android.widget.RecyclerView;
@@ -47,6 +53,9 @@ public class SearchFoodActivity extends AppCompatActivity {
     //RecyclerView.Adapter  adapter;
     RecyclerView.Adapter  adapter;
 
+    User user;
+    Meal meal;
+
     ArrayList<Product> products = new ArrayList<Product>();;
     Product product, clickedProduct;
     ArrayList<String> productNames = new ArrayList<>();
@@ -59,11 +68,16 @@ public class SearchFoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_food);
 
+    user = (User) getIntent().getSerializableExtra("CurrentUser");
+    meal = (Meal) getIntent().getSerializableExtra("Meal");
+
     searchView = (SearchView) findViewById(R.id.searchView);
     recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     addFood = findViewById(R.id.addButton);
     RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
-     recyclerView.setLayoutManager(recyclerViewlayoutManager);
+    recyclerView.setLayoutManager(recyclerViewlayoutManager);
+    recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+            DividerItemDecoration.VERTICAL));
 
     list = new ArrayList<>();
     list.add("Apple");
@@ -79,7 +93,7 @@ public class SearchFoodActivity extends AppCompatActivity {
 
 
 
-    String localhost = "192.168.1.7:8090";
+    String localhost =  "192.168.43.51:8090";//"192.168.1.7:8090";
     String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
     String login_url_local = "http://" + localhost + "/api";
 
@@ -131,6 +145,33 @@ public class SearchFoodActivity extends AppCompatActivity {
     });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("Meal", meal);
+                resultIntent.putExtra("UpdatedUser", user);
+                setResult(RESULT_OK, resultIntent);
+                this.finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("Meal", meal);
+            resultIntent.putExtra("UpdatedUser", user);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -142,6 +183,7 @@ public class SearchFoodActivity extends AppCompatActivity {
             int REQUEST_CODE = 7;
             Intent newIntent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
             newIntent.putExtra("CurrentUser", (Serializable) user);
+            newIntent.putExtra("Meal", (Serializable) meal);
             newIntent.putExtra("CurrentProduct", (Serializable) clickedProduct);
             startActivityForResult(newIntent, REQUEST_CODE);
         }
@@ -154,10 +196,13 @@ public class SearchFoodActivity extends AppCompatActivity {
         if (requestCode == 6) {
             if (resultCode == RESULT_OK) {
                 user = (User) data.getSerializableExtra("UpdatedUser");
-                System.out.println("" + user);
+                products.clear();
+                searchForProducts(searchProductsURL);
+                adapter.notifyDataSetChanged();
+                System.out.println("Product added !");
             }
             if (resultCode == RESULT_CANCELED) {
-                System.out.println("Nothing selected");
+                System.out.println("Nothing selected !");
 
             }
         }
@@ -174,8 +219,8 @@ public class SearchFoodActivity extends AppCompatActivity {
 
                 //adapter = new ProductAdapter(this, products);
                 adapter.notifyDataSetChanged();
-                adapter.notifyItemInserted(products.size());
-                recyclerView.invalidate();
+                //adapter.notifyItemInserted(products.size());
+                //recyclerView.invalidate();
                 //recyclerView.setAdapter(adapter);
 
             }

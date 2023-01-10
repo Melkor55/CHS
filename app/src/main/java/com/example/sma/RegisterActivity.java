@@ -12,6 +12,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         String[] data = new String[7];
         ExtraFunctions extraFunctions = new ExtraFunctions();
 
-        String localhost = "192.168.1.7";
+        String localhost = "192.168.43.51";//"192.168.1.102";//"192.168.1.7";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
         String login_url_local = "http://" + localhost + ":8090/api/register";
 
@@ -118,6 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                             {
                                 System.out.println("---- Registered ----");
                                 Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                intent.putExtra("CurrentUser", (Serializable) user);
                                 startActivity(intent);
                             }
                         } else {

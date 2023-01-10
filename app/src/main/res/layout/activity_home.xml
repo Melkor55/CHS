@@ -1,311 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".HomeActivity">
-
-
-
-    <TextView
-        android:id="@+id/textViewCalories"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Calories :"
-        app:layout_constraintBottom_toTopOf="@+id/textViewCaloriesGoal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesGoalValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="132dp"
-        android:text="2500"
-        app:layout_constraintEnd_toStartOf="@+id/textViewCaloriesConsumedValue"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesGoal" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesConsumedValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesConsumed" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesLeftValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="8dp"
-        android:text="2500"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toEndOf="@+id/textViewCaloriesConsumedValue"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesLeft" />
-
-    <TextView
-        android:id="@+id/textViewProgressOverDelimiter"
-        android:layout_width="3dp"
-        android:layout_height="21dp"
-        android:background="@color/orange"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/progressBarCalories"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="56dp"
-        android:text="Remaining"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.021"
-        app:layout_constraintStart_toEndOf="@+id/textViewCaloriesConsumed"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesConsumed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="Consumed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewCaloriesGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="64dp"
-        android:text="Goal"
-        app:layout_constraintEnd_toStartOf="@+id/textViewCaloriesConsumed"
-        app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progressBarCalories"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="297dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:progress="70"
-        android:progressTint="@color/mediumSeaGreen"
-        android:scaleY="5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" />
-    <ProgressBar
-        android:id="@+id/progressBarCaloriesOver"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="60dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="28dp"
-        android:progress="100"
-        android:progressTint="@color/red"
-        android:scaleY="5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewProgressOverDelimiter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156" />
-
-    <TextView
-        android:id="@+id/textViewBreakfast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:text="Breakfast :"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBreakfast"
-        android:layout_width="360dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.225" />
-
-    <TextView
-        android:id="@+id/textViewLunch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:text="Lunch :"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewLunch"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewLunch"
-        android:layout_width="360dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewBreakfast" />
-
-    <TextView
-        android:id="@+id/textViewDinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dinner :"
-        android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewDinner"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDinner"
-        android:layout_width="360dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewLunch"/>
-
-    <TextView
-        android:id="@+id/textViewSnacks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Snacks : "
-        android:layout_marginStart="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewSnacks"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewSnacks"
-        android:layout_width="360dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewDinner" />
-
-    <Button
-        android:id="@+id/addFoodToBreakfastButton"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBreakfast"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewBreakfast"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewBreakfast"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/addFoodToLunchButton"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewLunch"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewLunch"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewLunch"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/addFoodToDinnerButton"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewDinner"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewDinner"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewDinner"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/addFoodToSnackButton"
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="12dp"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewSnacks"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerViewSnacks"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewSnacks"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/dateLeftButton"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/transparent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewDate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_left_24" />
-
-    <ImageButton
-        android:id="@+id/dateRightButton"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginStart="4dp"
-        android:backgroundTint="@color/transparent"
-        android:src="@drawable/ic_baseline_arrow_right_24"
-        app:layout_constraintStart_toEndOf="@+id/textViewDate"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/profileButton"
-        android:layout_width="50dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/abstract_user_flat_4" />
+        tools:context=".HomeActivity">
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewCaloriesDinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewDinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.003"
+            app:layout_constraintStart_toEndOf="@+id/textViewDinner"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewLunch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewLunch"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textViewCalories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calories :"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCaloriesGoal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.648" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesGoalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:text="2500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesGoal" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesConsumedValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="8dp"
+            android:text="0"
+            app:layout_constraintStart_toEndOf="@+id/textViewCaloriesGoalValue"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesConsumed" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesLeftValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="8dp"
+            android:text="2500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.169"
+            app:layout_constraintStart_toEndOf="@+id/textViewCaloriesConsumedValue"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCaloriesLeft" />
+
+        <TextView
+            android:id="@+id/textViewProgressOverDelimiter"
+            android:layout_width="3dp"
+            android:layout_height="20dp"
+            android:background="@color/orange"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/progressBarCalories"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.777" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="56dp"
+            android:text="Remaining"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.021"
+            app:layout_constraintStart_toEndOf="@+id/textViewCaloriesConsumed"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesConsumed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Consumed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="64dp"
+            android:text="Goal"
+            app:layout_constraintEnd_toStartOf="@+id/textViewCaloriesConsumed"
+            app:layout_constraintHorizontal_bias="0.468"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBarCalories"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="297dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:progress="0"
+            android:progressTint="@color/mediumSeaGreen"
+            android:scaleY="5"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.777" />
+
+        <ProgressBar
+            android:id="@+id/progressBarCaloriesOver"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="20dp"
+            android:progress="0"
+            android:progressTint="@color/red"
+            android:scaleY="5"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewProgressOverDelimiter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.777" />
+
+        <TextView
+            android:id="@+id/textViewBreakfast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="Breakfast :"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBreakfast"
+            android:layout_width="360dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="172dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunch :"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewLunch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.076"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewDate"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewLunch"
+            android:layout_width="360dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewBreakfast" />
+
+        <TextView
+            android:id="@+id/textViewDinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dinner :"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewDinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.076"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDinner"
+            android:layout_width="360dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewLunch" />
+
+        <TextView
+            android:id="@+id/textViewSnacks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Snacks : "
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewSnacks"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.073"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSnacks"
+            android:layout_width="360dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewDinner" />
+
+        <Button
+            android:id="@+id/addFoodToBreakfastButton"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/addFoodToLunchButton"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewLunch"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewLunch"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewLunch"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/addFoodToDinnerButton"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewDinner"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewDinner"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewDinner"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/addFoodToSnackButton"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewSnacks"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewSnacks"
+            app:layout_constraintTop_toTopOf="@+id/recyclerViewSnacks"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/dateLeftButton"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDate"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_left_24" />
+
+        <ImageButton
+            android:id="@+id/dateRightButton"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/transparent"
+            android:src="@drawable/ic_baseline_arrow_right_24"
+            app:layout_constraintStart_toEndOf="@+id/textViewDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/profileButton"
+            android:layout_width="50dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/abstract_user_flat_4" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesBreakfast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewBreakfast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewBreakfast"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textViewCaloriesSnacks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerViewSnacks"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewSnacks"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

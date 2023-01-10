@@ -22,6 +22,9 @@ public class Product implements Serializable {
     private int Protein;
     private int Salt;
 
+    public Product() {
+    }
+
     public Product(String name, String brand, int calories, int weight, String unit, int fats, int saturatedFats, int carbohydrates, int polyols, int sugars, int fiber, int protein, int salt) {
         Name = name;
         Brand = brand;
@@ -212,6 +215,24 @@ public class Product implements Serializable {
                 ", Protein=" + Protein +
                 ", Salt=" + Salt +
                 '}';
+    }
+
+    public String[] getFieldNameString() {
+        return new String[]{
+                "Brand",
+                "Name",
+                "Calories",
+                "Weight",
+                "Unit",
+                "Fats",
+                "SaturatedFats",
+                "Carbohydrates",
+                "Polyols",
+                "Sugars",
+                "Fiber",
+                "Protein",
+                "Salt"
+        };
     }
     
     public boolean isEqualTo(Product product)
