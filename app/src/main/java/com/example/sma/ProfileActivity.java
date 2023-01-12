@@ -45,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView textViewStatus;
     Button saveButton;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         textViewStatus = findViewById(R.id.textViewStatus);
         saveButton = findViewById(R.id.saveButton);
+        logoutButton = findViewById(R.id.logoutButton);
 
         float density = this.getResources().getDisplayMetrics().density;
         //float px = someDpValue * density;
@@ -80,9 +82,10 @@ public class ProfileActivity extends AppCompatActivity {
         String[] data = new String[7];
         ExtraFunctions extraFunctions = new ExtraFunctions();
 
-        String localhost = "192.168.43.51";//"192.168.1.102";//"192.168.1.7";
+        String localhost = "192.168.43.51:8090";//"192.168.1.102";//"192.168.1.7";
+        String server = "csh-nodejs-api.azurewebsites.net";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-        String login_url_local = "http://" + localhost + ":8090/api/updateUser";
+        String login_url_local = "http://" + server + "/api/updateUser";
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +128,14 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
 
+            }
+        });
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

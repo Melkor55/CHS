@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,8 +23,15 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.SMA"
-        android:usesCleartextTraffic="true"
-        >
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ScanBarcodeActivity"
+            android:exported="false"
+            android:parentActivityName=".SearchFoodActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".SearchFoodActivity"
             android:exported="false"
@@ -28,7 +43,7 @@
         <activity
             android:name=".AddFoodActivity"
             android:exported="false"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".SearchFoodActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -62,7 +77,7 @@
             android:name=".RegisterActivity"
             android:exported="false"
             android:label="Register"
-            android:parentActivityName=".RegisterActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

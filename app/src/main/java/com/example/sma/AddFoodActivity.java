@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,6 +35,7 @@ import java.net.URLEncoder;
 
 import Models.Day;
 import Models.Meal;
+import Models.MealFood;
 import Models.Product;
 import Models.User;
 import Utils.ExtraFunctions;
@@ -42,10 +44,12 @@ public class AddFoodActivity extends AppCompatActivity {
 
     Meal meal;
     User user;
+    MealFood mealFood;
     Product product = new Product(), clickedProduct = new Product();
     String barcode = "0";
 
 	Button saveButton;
+    Button addButton;
 
 	EditText  brandField;
 	EditText  nameField;
@@ -83,6 +87,7 @@ public class AddFoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_food);
 
         saveButton = findViewById(R.id.saveButton);
+        addButton = findViewById(R.id.addButton);
 
         brandField = findViewById(R.id.brandField);
         nameField = findViewById(R.id.nameField);
@@ -125,8 +130,9 @@ public class AddFoodActivity extends AppCompatActivity {
         clickedProduct = (Product) getIntent().getSerializableExtra("CurrentProduct");
 
         String localhost = "192.168.43.51:8090";//"192.168.1.7:8090";
+        String server = "csh-nodejs-api.azurewebsites.net";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-        String login_url_local = "http://" + localhost + ":8090/api";
+        String login_url_local = "http://" + server + "/api";
 
         String createMealUrl = login_url_local + "/meals";
         String createDayUrl = login_url_local + "/days";
@@ -137,6 +143,7 @@ public class AddFoodActivity extends AppCompatActivity {
             productId = clickedProduct.getProductId();
         String searchForProduct = login_url_local + "/products" + "?ProductId=" + productId;
         String updateProduct = login_url_local + "/updateProduct";
+        String addFoodToMeal = login_url_local + "/mealFoods";
 
         if( findProduct(searchForProduct) )
         {
@@ -159,9 +166,9 @@ public class AddFoodActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (product != null)
-                        if(product.getBarcode() != null)
-                            barcode = product.getBarcode();
+                if (clickedProduct != null)
+                        if(clickedProduct.getBarcode() != null)
+                            barcode = clickedProduct.getBarcode();
 //                extraFunctions.checkForEmptyData(
 //                        data,
 //                        user.getFieldNameString(),
@@ -230,6 +237,7 @@ public class AddFoodActivity extends AppCompatActivity {
                     System.out.println(product);
                     System.out.println(newProduct);
                     //Toast.makeText(AddFoodActivity.this, "User Updated !", Toast.LENGTH_SHORT).show();
+                    addButton.setVisibility(View.VISIBLE);
                     if(product.isEqualTo(newProduct))
                     {
                         Toast.makeText(AddFoodActivity.this, "No modifications for Product !", Toast.LENGTH_SHORT).show();
@@ -239,6 +247,18 @@ public class AddFoodActivity extends AppCompatActivity {
                         Toast.makeText(AddFoodActivity.this, "Product Updated !", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int REQUEST_CODE = 8;
+                addFoodToMeal(addFoodToMeal);
+                Intent intent = new Intent(AddFoodActivity.this, SearchFoodActivity.class);
+                intent.putExtra("CurrentUser", (Serializable) user);
+                intent.putExtra("Meal", (Serializable) meal);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -465,6 +485,92 @@ public class AddFoodActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    protected Boolean addFoodToMeal(String stringUrl){
+        try {
+            URL url = new URL(stringUrl);
+            System.out.println("***Url :" + url);
+
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(10000);
+            connection.setRequestMethod("POST");
+            //connection.setDoOutput(true);
+            connection.setDoInput(true);
+
+            OutputStream outputStream = connection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(
+                    new OutputStreamWriter(outputStream, "UTF-8"));
+
+            //System.out.println("*** User : " + user);
+
+            String data =   URLEncoder.encode("MealId", "UTF-8") + "=" + meal.getMealId() +  "&"
+                            + URLEncoder.encode("ProductId", "UTF-8") + "=" + product.getProductId() +  "&"
+                            + URLEncoder.encode("Quantity", "UTF-8") + "=" + + product.getWeight();
+
+            bufferedWriter.write(data);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+
+            int status = connection.getResponseCode();
+            System.out.println("***Response Status :" + status);
+
+            InputStream inputStream;
+            if ( status >= 400 )
+                inputStream = connection.getErrorStream();
+            else
+                inputStream = connection.getInputStream();
+            //int status = connection.getResponseCode();
+            //System.out.println("***Response Status :" + status);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(inputStream, "iso-8859-1"));
+
+            String response = "";
+            String line = "";
+
+            while ((line = bufferedReader.readLine()) != null) {
+                response += line;
+            }
+//            for (int i = 0; i < 1000000; i++) {
+//
+//            }
+            bufferedReader.close();
+            inputStream.close();
+            connection.disconnect();
+
+            System.out.println("Response  :" + response);
+//            JSONObject jsonObject = new JSONObject("" + response);
+//            JSONArray jsonArray = jsonObject.getJSONArray("Day");
+//            JSONObject jsonObject2 = jsonArray.getJSONObject(0);
+//  mai jos echivalentul
+            JSONArray jsonArray = new JSONObject("" + response).getJSONArray("mealFood");
+            //JSONObject jsonObject = new JSONObject("" + response).getJSONArray("Day").getJSONObject(0);
+            //return jsonObject.getString("Day");
+            //System.out.println(jsonObject);
+            if (jsonArray.length() >= 1) {
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                mealFood = new MealFood(
+                        jsonObject.getInt("MealId"),
+                        jsonObject.getInt("ProductId"),
+                        jsonObject.getInt("Quantity")
+                );
+                System.out.println(mealFood);
+                //return jsonArray.getJSONObject(0).toString();
+            }
+
+            return true;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException ee) {
+            ee.printStackTrace();
+            return false;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

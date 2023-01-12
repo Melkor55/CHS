@@ -61,6 +61,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     ArrayList<String> productNames = new ArrayList<>();
 
     Button addFood;
+    Button scanBarcodeButton;
     String searchProductsURL;
 
     @Override
@@ -74,6 +75,7 @@ public class SearchFoodActivity extends AppCompatActivity {
     searchView = (SearchView) findViewById(R.id.searchView);
     recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
     addFood = findViewById(R.id.addButton);
+    scanBarcodeButton = findViewById(R.id.scanBarcodeButton);
     RecyclerView.LayoutManager recyclerViewlayoutManager = new LinearLayoutManager(this);
     recyclerView.setLayoutManager(recyclerViewlayoutManager);
     recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
@@ -94,8 +96,9 @@ public class SearchFoodActivity extends AppCompatActivity {
 
 
     String localhost =  "192.168.43.51:8090";//"192.168.1.7:8090";
+    String server = "csh-nodejs-api.azurewebsites.net";
     String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-    String login_url_local = "http://" + localhost + "/api";
+    String login_url_local = "http://" + server + "/api";
 
     String searchForProduct = login_url_local + "/products" + "?ProductId=11";
     String searchForProducts = login_url_local + "/products";
@@ -140,10 +143,22 @@ public class SearchFoodActivity extends AppCompatActivity {
             int REQUEST_CODE = 6;
             Intent intent = new Intent(SearchFoodActivity.this, AddFoodActivity.class);
             intent.putExtra("CurrentUser", (Serializable) user);
+            intent.putExtra("Meal", (Serializable) meal);
+            startActivity(intent);
+        }
+    });
+    scanBarcodeButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            int REQUEST_CODE = 8;
+            Intent intent = new Intent(SearchFoodActivity.this, ScanBarcodeActivity.class);
+            intent.putExtra("CurrentUser", (Serializable) user);
+            intent.putExtra("Meal", (Serializable) meal);
             startActivityForResult(intent, REQUEST_CODE);
         }
     });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -222,6 +237,23 @@ public class SearchFoodActivity extends AppCompatActivity {
                 //adapter.notifyItemInserted(products.size());
                 //recyclerView.invalidate();
                 //recyclerView.setAdapter(adapter);
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+                System.out.println("Nothing happened");
+
+            }
+        }
+        if (requestCode == 8) {
+            if (resultCode == RESULT_OK) {
+                //user = (User) data.getSerializableExtra("UpdatedUser");
+                //System.out.println("" + user);
+                products.clear();
+                searchForProducts(searchProductsURL);
+
+                //adapter = new ProductAdapter(this, products);
+                adapter.notifyDataSetChanged();
+
 
             }
             if (resultCode == RESULT_CANCELED) {

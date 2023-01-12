@@ -52,9 +52,10 @@ public class LoginActivity extends AppCompatActivity {
 //            data = data + line;
 //        }
 
-        String localhost = "192.168.43.51";
+        String localhost = "192.168.43.51:8090";
+        String server = "csh-nodejs-api.azurewebsites.net";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/login";
-        String login_url_local = "http://" + localhost + ":8090/api/login";
+        String login_url_local = "http://" + server + "/api/login";
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -67,9 +67,10 @@ public class RegisterActivity extends AppCompatActivity {
         String[] data = new String[7];
         ExtraFunctions extraFunctions = new ExtraFunctions();
 
-        String localhost = "192.168.43.51";//"192.168.1.102";//"192.168.1.7";
+        String localhost = "192.168.43.51:8090";//"192.168.1.102";//"192.168.1.7";
+        String server = "csh-nodejs-api.azurewebsites.net";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-        String login_url_local = "http://" + localhost + ":8090/api/register";
+        String login_url_local = "http://" + server + "/api/register";
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

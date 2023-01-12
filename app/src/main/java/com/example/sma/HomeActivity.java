@@ -157,9 +157,10 @@ public class HomeActivity extends AppCompatActivity {
         System.out.println(user);
         int[] mealIds = new int[4];
 
-        String localhost = "192.168.43.51";//"192.168.1.7:8090";
+        String localhost = "192.168.43.51:8090";//"192.168.1.7:8090";
+        String server = "csh-nodejs-api.azurewebsites.net";
         String login_url_server = "https://csh-nodejs-api.azurewebsites.net/api/users";
-        String login_url_local = "http://" + localhost + ":8090/api";
+        String login_url_local = "http://" + server + "/api";
 
         //SimpleDateFormat databaseDateFormat = new SimpleDateFormat("YYYY-MM-dd");
         //String todayDate = databaseDateFormat.format(Calendar.getInstance().getTime());

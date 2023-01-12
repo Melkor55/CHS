@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button homeButton ;
     Button searchButton ;
     String connectionResult = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
